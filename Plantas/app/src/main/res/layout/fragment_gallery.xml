@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.gallery.GalleryFragment">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TableLayout
+                android:id="@+id/table_floracion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*">
+
+                <!-- Cabecera de las plantas -->
+                <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mes"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:background="@color/verde_lima"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fresno"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:background="@color/verde_lima"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Olivo"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:background="@color/verde_lima"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Platano"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:background="@color/verde_lima"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Diente de león"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:padding="8dp"
+                        android:background="@color/verde_lima"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:text="May"
+                        android:padding="8dp"
+                        android:textColor="@android:color/black"
+                        android:background="@color/verde_lima"/>
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="17dp"
+                        android:contentDescription="Floración Fresno Mayo"
+                        android:src="@drawable/circle_shape" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Sin floración Olivo Mayo" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Floración Platano Mayo" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Sin floración Diente de león Mayo" />
+                </TableRow>
+
+                <!-- Junio -->
+                <TableRow>
+                    <TextView
+                        android:text="Jun"
+                        android:padding="8dp"
+                        android:textColor="@android:color/black"
+                        android:background="@color/verde_lima"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Floración Fresno Junio" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="17dp"
+                        android:contentDescription="Floración Olivo Junio"
+                        android:src="@drawable/circle_shape" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Sin floración Platano Junio" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="11dp"
+                        android:contentDescription="Floración Diente de león Junio"
+                        android:src="@drawable/circle_shape" />
+                </TableRow>
+
+                <!-- Julio -->
+                <TableRow>
+                    <TextView
+                        android:text="Jul"
+                        android:padding="8dp"
+                        android:textColor="@android:color/black"
+                        android:background="@color/verde_lima"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Sin floración Fresno Julio" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="14dp"
+                        android:contentDescription="Floración Olivo Julio"
+                        android:src="@drawable/circle_shape" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:contentDescription="Floración Platano Julio"
+                        android:src="@drawable/circle_shape" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Sin floración Diente de león Julio" />
+                </TableRow>
+
+                <!-- Agosto -->
+                <TableRow>
+                    <TextView
+                        android:text="Ago"
+                        android:padding="8dp"
+                        android:textColor="@android:color/black"
+                        android:background="@color/verde_lima"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Sin floración Fresno Agosto" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Floración Olivo Agosto" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="13dp"
+                        android:contentDescription="Floración Platano Agosto"
+                        android:src="@drawable/circle_shape" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:contentDescription="Sin floración Diente de león Agosto"
+                        android:src="@drawable/circle_shape" />
+                </TableRow>
+
+                <!-- Septiembre -->
+                <TableRow>
+                    <TextView
+                        android:text="Sep"
+                        android:padding="8dp"
+                        android:textColor="@android:color/black"
+                        android:background="@color/verde_lima"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Floración Fresno Septiembre" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="13dp"
+                        android:contentDescription="Sin floración Olivo Septiembre"
+                        android:src="@drawable/circle_shape" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:contentDescription="Sin floración Platano Septiembre"
+                        android:src="@drawable/circle_shape" />
+
+                    <ImageView
+                        android:layout_width="78dp"
+                        android:layout_height="13dp"
+                        android:contentDescription="Floración Diente de león Septiembre"
+                        android:src="@drawable/circle_shape" />
+                </TableRow>
+
+                <!-- Octubre -->
+                <TableRow>
+                    <TextView
+                        android:text="Oct"
+                        android:padding="8dp"
+                        android:textColor="@android:color/black"
+                        android:background="@color/verde_lima"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Sin floración Fresno Octubre" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="12dp"
+                        android:contentDescription="Floración Olivo Octubre"
+                        android:src="@drawable/circle_shape" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Floración Platano Octubre" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Floración Diente de león Octubre" />
+                </TableRow>
+
+                <!-- Noviembre -->
+                <TableRow>
+                    <TextView
+                        android:text="Nov"
+                        android:padding="8dp"
+                        android:textColor="@android:color/black"
+                        android:background="@color/verde_lima"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Sin floración Fresno Noviembre" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="14dp"
+                        android:contentDescription="Sin floración Olivo Noviembre"
+                        android:src="@drawable/circle_shape" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Floración Platano Noviembre" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Sin floración Diente de león Noviembre" />
+                </TableRow>
+
+                <!-- Diciembre -->
+                <TableRow>
+                    <TextView
+                        android:text="Dic"
+                        android:padding="8dp"
+                        android:textColor="@android:color/black"
+                        android:background="@color/verde_lima"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Floración Fresno Diciembre" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:contentDescription="Sin floración Olivo Diciembre"
+                        android:src="@drawable/circle_shape" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Sin floración Platano Diciembre" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/circle_shape"
+                        android:contentDescription="Floración Diente de león Diciembre" />
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

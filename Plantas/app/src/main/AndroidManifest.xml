@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- Declaración de queries para interactuar con otras aplicaciones (Cámara y Navegador) -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <data android:scheme="http" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" /> <!-- Permisos necesarios para la cámara, almacenamiento e internet -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Plantas"
+        tools:targetApi="31">
+        <activity
+            android:name=".Foto_planta_seleccionada"
+            android:exported="false" />
+        <activity
+            android:name=".Fotos_planta"
+            android:exported="false" />
+        <activity
+            android:name=".Giua_planta"
+            android:exported="false" />
+        <activity
+            android:name=".View_plantita"
+            android:exported="false" />
+        <activity
+            android:name=".mis_plantas"
+            android:exported="false" /> <!-- Declaración de actividades -->
+        <activity
+            android:name=".PlantResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CrearJardinActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cuenta"
+            android:exported="false"
+            android:theme="@style/Theme.Plantas" />
+        <activity
+            android:name=".ventanainicio"
+            android:exported="false"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.Plantas.NoActionBar" />
+        <activity
+            android:name=".Registrar"
+            android:exported="false"
+            android:theme="@style/Theme.Plantas_Nobar" />
+        <activity android:name=".crear_jardin" />
+        <activity
+            android:name=".Iniciar_sesion"
+            android:exported="true"
+            android:theme="@style/Theme.Plantas_Nobar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- Proveedor de archivos necesario para la cámara -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
+</manifest>

@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">GreenApp</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="ingresa_correo">Ingresa tu correo</string>
+    <string name="ingresa_contrasenia">Ingresa tu contraseña</string>
+    <string name="correo">Correo</string>
+    <string name="contrasenia">Contraseña</string>
+    <string name="btn_iniciar_sesion">Iniciar sesión</string>
+    <string name="n_cuenta">Aun no tienes cuenta??, Vamos a</string>
+    <string name="registrarse">Registrar</string>
+    <string name="title_activity_ventanainicio">Ventanainicio</string>
+    <string name="s_cuenta">Ya tienes cuenta??, Vamos al </string>
+    <string name="Logearse">Login</string>
+    <string name="Nombre">Nombre</string>
+    <string name="in_nombre">Ingresa tu Nombre </string>
+    /*Menu lateral*/
+    <string name="inicio">Inicio</string>
+    <string name="calendario_de_floracion">Calendario de floracion</string>
+    <string name="mi_cuenta">Mi cuenta</string>
+    <string name="Galeria_de_fotos_privada">Galeria de fotos privada</string>
+    <string name="mis_plantas">Mis plantas</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Cuenta</string>
+
+    <string name="menu_home">Inicio</string>
+    <string name="menu_gallery">Calendario de floracion</string>
+    <string name="menu_slideshow">Galeria de fotos publica</string>
+    <string name="cerrar_sesion">Cerrar sesion</string>
+    <string name="daylan_collado">Daylan Collado</string>
+    <string name="litros_de_agua_gastados_este_mes">Litros de agua gastados este mes</string>
+    <string name="cantidad_de_plantas_perecidas">Cantidad de plantas perecidas</string>
+    <string name="planta_mas_antigua">Planta mas antigua</string>
+    <string name="cantidad_de_plantas">Cantidad de plantas</string>
+    <string name="google">Google</string>
+    <string name="lista_de_tareas">Lista de tareas</string>
+    <string name="PLANTNET_API_KEY">2b10U0eWCgPpoH8ZA2sjEc2</string>
+    <string name="cala">Cala</string>
+    <string name="agregar_problema_y_soluci_n">Agregar Problema y solución</string>
+
+</resources>
