@@ -45,8 +45,13 @@
         android:theme="@style/Theme.Plantas"
         tools:targetApi="31">
         <activity
+            android:name=".AgregarTareaActivity"
+            android:exported="false" />
+        <activity
             android:name=".Foto_planta_seleccionada"
             android:exported="false" />
+        <activity android:name=".Galeria_otros" />
+
         <activity
             android:name=".Fotos_planta"
             android:exported="false" />
@@ -69,8 +74,6 @@
             android:name=".cuenta"
             android:exported="false"
             android:theme="@style/Theme.Plantas" />
-        <activity android:name=".Galeria_otros"></activity>
-
         <activity
             android:name=".ventanainicio"
             android:exported="false"

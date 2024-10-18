@@ -13,5 +13,10 @@
         android:orderInCategory="101"
         android:title="@string/Plantas_a_la_base"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/amigos"
+        android:orderInCategory="101"
+        android:title="@string/Galeria_Amigos"
+        app:showAsAction="never" />
 
 </menu>

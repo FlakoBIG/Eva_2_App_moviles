@@ -11,6 +11,8 @@
     <color name="verde_lima_oscuro">#09760D</color>
     <color name="gris">#000000</color>
     <color name="gris_oscuro">#333333</color>
+    <color name="green">#4CAF50</color>
+    <color name="red">#F44336</color>
 
 
 </resources>

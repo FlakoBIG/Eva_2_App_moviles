@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.1"
+annotation = "1.9.0"
 compiler = "4.12.0"
 converterGson = "2.9.0"
 firebaseBom = "32.0.0"
@@ -26,6 +27,7 @@ playServicesAuth = "21.2.0"
 retrofit = "2.9.0"
 
 [libraries]
+annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 firebase-bom-v3200 = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }

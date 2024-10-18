@@ -71,12 +71,13 @@ public class ventanainicio extends AppCompatActivity implements NavigationView.O
             }
         });
 
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         navigationView.setNavigationItemSelectedListener(this);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.action_cuenta, R.id.nav_galeria_otros)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.action_cuenta)
                 .setOpenableLayout(drawer)
                 .build();
 
@@ -120,18 +121,10 @@ public class ventanainicio extends AppCompatActivity implements NavigationView.O
             Intent intent = new Intent(this, mis_plantas.class);
             startActivity(intent);
             return true;
-        } else if (id == R.id.nav_galeria_otros) {
-            Intent intent = new Intent(this, Galeria_otros.class);
-            startActivity(intent);
-            return true;
         }
 
         return false;
     }
-
-
-
-
 
 
     @Override
@@ -145,6 +138,11 @@ public class ventanainicio extends AppCompatActivity implements NavigationView.O
         } else if (id == R.id.action_planta_base) {
             Log.d("MenuDebug", "boton agregar plantas seleccionado");
             Intent intent = new Intent(this, AgregarPlantasBase.class);
+            startActivity(intent);
+            return true;
+        }else if (id == R.id.amigos) {
+            Log.d("MenuDebug", "boton agregar plantas seleccionado");
+            Intent intent = new Intent(this, Galeria_otros.class);
             startActivity(intent);
             return true;
         }
