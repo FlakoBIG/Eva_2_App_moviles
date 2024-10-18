@@ -49,11 +49,11 @@
 
             <EditText
                 android:id="@+id/et_plant_name"
-                android:layout_width="match_parent"
+                android:layout_width="212dp"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:background="@drawable/cuadrado_rendodo"
-                android:hint="Ingresa tu nombre" />
+                android:hint="Ingresa tu nombre"
+                android:padding="10dp" />
 
             <TextView
                 android:id="@+id/tv_fecha_plantación"
@@ -63,14 +63,14 @@
                 android:textSize="16sp" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/et_fecha_plantación"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/cuadrado_rendodo"
@@ -81,17 +81,31 @@
                     android:id="@+id/iv_calendar"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@android:drawable/ic_menu_my_calendar"
-                    android:contentDescription="Calendario" />
+                    android:contentDescription="Calendario"
+                    android:src="@android:drawable/ic_menu_my_calendar" />
+
+                <ImageButton
+                    android:id="@+id/plantita"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:contentDescription="Calendario"
+                    android:src="@drawable/grain_png"
+                    android:scaleType="centerInside"
+                    android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+
+
+
             </LinearLayout>
 
             <Button
                 android:id="@+id/btn_agregar_planta"
-                android:layout_width="match_parent"
+                android:layout_width="211dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/verde_lima"
-                android:textColor="@android:color/white"
-                android:text="Subir" />
+                android:text="Subir"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
     </LinearLayout>

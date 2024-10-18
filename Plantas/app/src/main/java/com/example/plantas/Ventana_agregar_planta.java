@@ -18,65 +18,68 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class Ventana_agregar_planta extends BottomSheetDialogFragment {
 
     private static final int PICK_IMAGE_REQUEST = 1;
-    private ImageButton btnSubirFoto;
+    private ImageButton btnSubirFoto, btnVerPlantas;
     private Uri imagenUri;
     private EditText etNombrePlanta, etFechaPlantacion;
     private Button btnAgregarPlanta;
+    private String nombreRealPlantaSeleccionada; // Campo para almacenar el nombre real de la planta seleccionada
+    private mis_plantas actividadPrincipal;
+
+    public Ventana_agregar_planta(mis_plantas actividadPrincipal) {
+        this.actividadPrincipal = actividadPrincipal;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // inflar el layout del panel deslizante
         View view = inflater.inflate(R.layout.ventana_agregar_planta, container, false);
 
-        // inicializar los elementos de la interfaz
         btnSubirFoto = view.findViewById(R.id.btn_subir_foto);
         etNombrePlanta = view.findViewById(R.id.et_plant_name);
-        etFechaPlantacion = view.findViewById(R.id.et_fecha_plantación); // edittext para la fecha
-        ImageView ivCalendar = view.findViewById(R.id.iv_calendar); // icono del calendario
+        etFechaPlantacion = view.findViewById(R.id.et_fecha_plantación);
+        ImageView ivCalendar = view.findViewById(R.id.iv_calendar);
         btnAgregarPlanta = view.findViewById(R.id.btn_agregar_planta);
+        btnVerPlantas = view.findViewById(R.id.plantita); // Ícono para ver la lista de plantas
 
-        // configurar el boton para abrir la galeria
-        btnSubirFoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                abrirGaleria();
+        btnSubirFoto.setOnClickListener(v -> abrirGaleria());
+        ivCalendar.setOnClickListener(v -> mostrarDatePicker());
+
+        // Al presionar el ícono de la planta, se abre la ventana de la lista de plantas
+        btnVerPlantas.setOnClickListener(v -> mostrarListaPlantas());
+
+        btnAgregarPlanta.setOnClickListener(v -> {
+            String nombrePlanta = etNombrePlanta.getText().toString();
+            String fechaPlantacion = etFechaPlantacion.getText().toString();
+
+            if (nombreRealPlantaSeleccionada == null) {
+                Toast.makeText(getActivity(), "Por favor, selecciona una planta de la lista", Toast.LENGTH_SHORT).show();
+                return;
             }
-        });
 
-        // configurar el boton del calendario para seleccionar la fecha
-        ivCalendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mostrarDatePicker();
-            }
-        });
-
-        // configurar el boton para agregar la planta a firebase
-        btnAgregarPlanta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String nombrePlanta = etNombrePlanta.getText().toString();
-                String fechaPlantacion = etFechaPlantacion.getText().toString();
-                Toast.makeText(getActivity(), "subiendo planta", Toast.LENGTH_SHORT).show();
-                if (!nombrePlanta.isEmpty() && imagenUri != null) {
-                    subirPlantaAFirebase(nombrePlanta, fechaPlantacion, imagenUri);
-                } else {
-                    // mostrar error si falta informacion
-                    Toast.makeText(getActivity(), "por favor, ingresa el nombre y la imagen de la planta", Toast.LENGTH_SHORT).show();
-                }
+            if (!nombrePlanta.isEmpty() && imagenUri != null) {
+                subirPlantaAFirebase(nombrePlanta, fechaPlantacion, imagenUri, nombreRealPlantaSeleccionada);
+            } else {
+                Toast.makeText(getActivity(), "Por favor, ingresa el nombre y la imagen de la planta", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -95,9 +98,8 @@ public class Ventana_agregar_planta extends BottomSheetDialogFragment {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), (view, selectedYear, selectedMonth, selectedDay) -> {
-            // formatea la fecha a "DD/MM/YYYY"
             String fechaSeleccionada = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-            etFechaPlantacion.setText(fechaSeleccionada); // mostrar la fecha en el edittext
+            etFechaPlantacion.setText(fechaSeleccionada);
         }, year, month, day);
 
         datePickerDialog.show();
@@ -108,57 +110,160 @@ public class Ventana_agregar_planta extends BottomSheetDialogFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
             imagenUri = data.getData();
-            btnSubirFoto.setImageURI(imagenUri); // mostrar la imagen en el imagebutton
+            btnSubirFoto.setImageURI(imagenUri);
         }
     }
 
-    private void subirPlantaAFirebase(String nombre, String fechaPlantacion, Uri imagenUri) {
+    private void subirPlantaAFirebase(String nombre, String fechaPlantacion, Uri imagenUri, String nombreRealPlantaSeleccionada) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        // obtener el uid desde sharedpreferences
         SharedPreferences preferences = getActivity().getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
         String userId = preferences.getString("uid", null);
 
         if (userId == null) {
-            Toast.makeText(getActivity(), "error: no se encontro el uid del usuario", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Error: no se encontró el UID del usuario", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // crear una referencia para la subcoleccion "mis_plantas" dentro del documento "plantas"
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("usuarios/" + userId + "/plantas");
 
-        // subir la imagen a firebase storage
         if (imagenUri != null) {
             StorageReference fotoReferencia = storageReference.child(nombre + ".jpg");
             fotoReferencia.putFile(imagenUri).addOnSuccessListener(taskSnapshot -> {
                 fotoReferencia.getDownloadUrl().addOnSuccessListener(uri -> {
-                    // obtenemos la url de la imagen subida
                     String urlFoto = uri.toString();
 
-                    // crear el mapa con los datos de la planta
+                    // Crear un mapa para la planta
                     Map<String, Object> planta = new HashMap<>();
                     planta.put("nombre", nombre);
                     planta.put("foto_principal", urlFoto);
                     planta.put("fecha_plantacion", fechaPlantacion);
-                    planta.put("fotos", new ArrayList<String>()); // si hay mas fotos, las añades aqui
+                    planta.put("nombre_real", nombreRealPlantaSeleccionada);
+                    planta.put("fotos", new ArrayList<String>());
 
-                    // guardar la planta en el documento "plantas" dentro de la coleccion con el uid
+                    // Agregar la planta a Firestore
                     db.collection(userId).document("plantas")
                             .collection("mis_plantas")
                             .add(planta)
                             .addOnSuccessListener(documentReference -> {
-                                // mostrar mensaje de exito
-                                Toast.makeText(getActivity(), "planta registrada correctamente", Toast.LENGTH_SHORT).show();
+                                String plantaId = documentReference.getId();
+                                planta.put("id", plantaId);
 
-                                // cerrar el panel deslizante despues de registrar la planta
-                                dismiss();
+                                // Aquí se maneja el contador de plantas
+                                manejarContadorNombreReal(db, userId, nombreRealPlantaSeleccionada);
+
+                                documentReference.set(planta)
+                                        .addOnSuccessListener(aVoid -> {
+                                            verificarCantidadYActualizar(db, userId, nombre);
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(getActivity(), "Error al añadir el ID a la planta: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        });
                             })
                             .addOnFailureListener(e -> {
-                                // mostrar mensaje de error
-                                Toast.makeText(getActivity(), "error al registrar la planta", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Error al añadir planta: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             });
+                }).addOnFailureListener(e -> {
+                    Toast.makeText(getActivity(), "Error al obtener la URL de la imagen: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+            }).addOnFailureListener(e -> {
+                Toast.makeText(getActivity(), "Error al subir la imagen: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             });
         }
     }
+
+    private void manejarContadorNombreReal(FirebaseFirestore db, String userId, String nombreReal) {
+        DocumentReference perfilRef = db.collection(userId).document("datos_perfil");
+
+        perfilRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                // Verifica si ya existe el campo Plantas_reales_usando
+                if (documentSnapshot.contains("Plantas_reales_usando")) {
+                    // Obtiene la lista existente
+                    Map<String, Object> plantasUsando = (Map<String, Object>) documentSnapshot.get("Plantas_reales_usando");
+
+                    if (plantasUsando.containsKey(nombreReal)) {
+                        // Si el nombre_real ya existe, incrementa el contador
+                        long contador = (long) plantasUsando.get(nombreReal);
+                        plantasUsando.put(nombreReal, contador + 1);
+                    } else {
+                        // Si no existe, inicializa el contador
+                        plantasUsando.put(nombreReal, 1);
+                    }
+                    // Actualiza la lista en Firestore
+                    perfilRef.update("Plantas_reales_usando", plantasUsando)
+                            .addOnSuccessListener(aVoid -> {
+                                // Puedes agregar un Toast aquí si deseas informar que se actualizó
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(getActivity(), "Error al actualizar Plantas_reales_usando: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                } else {
+                    // Si no existe, crea una nueva lista y añade el nombre_real
+                    Map<String, Object> nuevasPlantas = new HashMap<>();
+                    nuevasPlantas.put(nombreReal, 1);
+                    perfilRef.update("Plantas_reales_usando", nuevasPlantas)
+                            .addOnSuccessListener(aVoid -> {
+                                // Puedes agregar un Toast aquí si deseas informar que se creó
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(getActivity(), "Error al crear Plantas_reales_usando: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                }
+            } else {
+                Toast.makeText(getActivity(), "No se encontró el documento 'datos_perfil'", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(e -> {
+            Toast.makeText(getActivity(), "Error al leer datos del perfil: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
+
+    private void verificarCantidadYActualizar(FirebaseFirestore db, String userId, String nombrePlanta) {
+        DocumentReference jardinRef = db.collection(userId).document("datos_jardin");
+
+        jardinRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                long cantidadActual = documentSnapshot.getLong("cantidad_de_plantas");
+
+                // Si la cantidad de plantas es 0, se actualiza "planta_mas_antigua"
+                if (cantidadActual == 0) {
+                    jardinRef.update("planta_mas_antigua", nombrePlanta)
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(getActivity(), "Planta más antigua registrada", Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(getActivity(), "Error al actualizar planta más antigua: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                }
+
+                // Incrementar la cantidad de plantas
+                long nuevaCantidad = cantidadActual + 1;
+                jardinRef.update("cantidad_de_plantas", nuevaCantidad)
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(getActivity(), "Planta añadida y cantidad actualizada", Toast.LENGTH_SHORT).show();
+                            dismiss();
+                            actividadPrincipal.cargarPlantas();
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(getActivity(), "Error al actualizar la cantidad: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+
+            } else {
+                Toast.makeText(getActivity(), "No se encontró el documento 'datos_jardin'", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(e -> {
+            Toast.makeText(getActivity(), "Error al leer datos del jardín: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void mostrarListaPlantas() {
+        ListaPlantasFragment listaPlantasFragment = new ListaPlantasFragment(nombrePlanta -> {
+            // Guardar el nombre real de la planta seleccionada
+            nombreRealPlantaSeleccionada = nombrePlanta;
+            Toast.makeText(getActivity(), "Planta seleccionada: " + nombrePlanta, Toast.LENGTH_SHORT).show();
+        });
+        listaPlantasFragment.show(getActivity().getSupportFragmentManager(), listaPlantasFragment.getTag());
+    }
+
+
 }

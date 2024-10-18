@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AgregarPlantasBase">
+
+    <TextView
+        android:id="@+id/textViewNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre de la Planta"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center" />
+
+    <EditText
+        android:id="@+id/nombre_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Ingresa el nombre de la planta"
+        app:layout_constraintTop_toBottomOf="@id/textViewNombre"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewMeses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecciona los meses de floración"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/nombre_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewMeses">
+
+        <LinearLayout
+            android:id="@+id/meses_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Checkboxes for each month -->
+            <CheckBox
+                android:id="@+id/checkBoxEnero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enero" />
+
+            <CheckBox
+                android:id="@+id/checkBoxFebrero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Febrero" />
+
+            <CheckBox
+                android:id="@+id/checkBoxMarzo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marzo" />
+
+            <CheckBox
+                android:id="@+id/checkBoxAbril"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Abril" />
+
+            <CheckBox
+                android:id="@+id/checkBoxMayo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mayo" />
+
+            <CheckBox
+                android:id="@+id/checkBoxJunio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Junio" />
+
+            <CheckBox
+                android:id="@+id/checkBoxJulio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Julio" />
+
+            <CheckBox
+                android:id="@+id/checkBoxAgosto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agosto" />
+
+            <CheckBox
+                android:id="@+id/checkBoxSeptiembre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Septiembre" />
+
+            <CheckBox
+                android:id="@+id/checkBoxOctubre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Octubre" />
+
+            <CheckBox
+                android:id="@+id/checkBoxNoviembre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Noviembre" />
+
+            <CheckBox
+                android:id="@+id/checkBoxDiciembre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Diciembre" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/textViewRecomendaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="Recomendaciones de cuidados"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
+
+    <EditText
+        android:id="@+id/recomendaciones_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Ingresa recomendaciones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewRecomendaciones" />
+
+    <ImageView
+        android:id="@+id/imageViewPlanta"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/recomendaciones_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="centerCrop" />
+
+    <Button
+        android:id="@+id/btn_select_image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Seleccionar Foto"
+        app:layout_constraintBottom_toTopOf="@+id/guardar_boton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewPlanta"
+        app:layout_constraintVertical_bias="0.155" />
+
+    <Button
+        android:id="@+id/guardar_boton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:text="Publicar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

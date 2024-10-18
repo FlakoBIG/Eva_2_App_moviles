@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <!-- Imagen de la planta -->
     <ImageView
         android:id="@+id/foto_planta"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="93dp"
+        android:layout_height="90dp"
         android:scaleType="centerCrop"
+        android:background="@drawable/contorno_verde"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Nombre de la planta -->
     <TextView
         android:id="@+id/nombre_planta"
         android:layout_width="0dp"
@@ -24,17 +23,21 @@
         android:text="Nombre de la Planta"
         android:textStyle="bold"
         android:textSize="18sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@id/foto_planta"
         app:layout_constraintTop_toTopOf="@id/foto_planta"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0" />
 
-    <!-- Fecha de plantación -->
     <TextView
         android:id="@+id/fecha_plantacion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Fecha de plantación"
         android:textSize="14sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toEndOf="@id/foto_planta"
         app:layout_constraintTop_toBottomOf="@id/nombre_planta"
         app:layout_constraintEnd_toEndOf="parent" />

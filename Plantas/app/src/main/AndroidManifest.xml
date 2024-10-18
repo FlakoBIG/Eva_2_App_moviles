@@ -58,7 +58,7 @@
             android:exported="false" />
         <activity
             android:name=".mis_plantas"
-            android:exported="false" /> <!-- Declaración de actividades -->
+            android:exported="false" />
         <activity
             android:name=".PlantResultActivity"
             android:exported="false" />
@@ -69,6 +69,8 @@
             android:name=".cuenta"
             android:exported="false"
             android:theme="@style/Theme.Plantas" />
+        <activity android:name=".Galeria_otros"></activity>
+
         <activity
             android:name=".ventanainicio"
             android:exported="false"
@@ -79,6 +81,7 @@
             android:exported="false"
             android:theme="@style/Theme.Plantas_Nobar" />
         <activity android:name=".crear_jardin" />
+        <activity android:name=".AgregarPlantasBase" />
         <activity
             android:name=".Iniciar_sesion"
             android:exported="true"

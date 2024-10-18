@@ -4,17 +4,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton; // Asegúrate de importar la clase
+import android.widget.ImageView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 
 public class mis_plantas extends AppCompatActivity {
 
@@ -38,29 +39,38 @@ public class mis_plantas extends AppCompatActivity {
         uid = sharedPreferences.getString("uid", null);
 
         plantasList = new ArrayList<>();
-
         plantasAdapter = new PlantasAdapter(plantasList, this);
         recyclerView.setAdapter(plantasAdapter);
 
+        // Llamar a cargarPlantas cuando se crea la actividad
         cargarPlantas();
+
+        ImageView btnRecargar = findViewById(R.id.recargar);
+        btnRecargar.setOnClickListener(v -> {
+            cargarPlantas();
+        });
 
         FloatingActionButton fab = findViewById(R.id.btn_agregar_planta);
         fab.setOnClickListener(view -> {
-            Ventana_agregar_planta bottomSheet = new Ventana_agregar_planta();
+            Ventana_agregar_planta bottomSheet = new Ventana_agregar_planta(this);
             bottomSheet.show(getSupportFragmentManager(), "Ventana_agregar_planta");
-        });
-
-        ImageButton btnViewPlantita = findViewById(R.id.btn_view_plantita);
-        btnViewPlantita.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mis_plantas.this, View_plantita.class);
-                startActivity(intent);
-            }
         });
     }
 
-    private void cargarPlantas() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                boolean recargarLista = data.getBooleanExtra("recargar_lista", false);
+                if (recargarLista) {
+                    cargarPlantas(); // Recargar la lista de plantas
+                }
+            }
+        }
+    }
+
+    public void cargarPlantas() {
         if (uid != null) {
             db.collection(uid).document("plantas")
                     .collection("mis_plantas")
@@ -69,15 +79,29 @@ public class mis_plantas extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             QuerySnapshot querySnapshot = task.getResult();
                             if (querySnapshot != null) {
-                                for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-                                    Planta planta = document.toObject(Planta.class);
-                                    plantasList.add(planta);
+                                plantasList.clear(); // Asegúrate de limpiar la lista siempre
+                                if (!querySnapshot.isEmpty()) {
+                                    for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                                        Planta planta = document.toObject(Planta.class);
+                                        if (planta != null) {
+                                            plantasList.add(planta);
+                                        } else {
+                                            Toast.makeText(this, "Error: Documento no se pudo convertir a Planta", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                } else {
+                                    Toast.makeText(this, "No hay plantas registradas.", Toast.LENGTH_SHORT).show();
                                 }
-
-                                plantasAdapter.notifyDataSetChanged();
+                                plantasAdapter.notifyDataSetChanged(); // Notifica al adaptador que los datos han cambiado
                             }
+                        } else {
+                            Toast.makeText(this, "Error en la consulta: " + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     });
+        } else {
+            Toast.makeText(this, "UID es nulo, no se puede cargar las plantas.", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }

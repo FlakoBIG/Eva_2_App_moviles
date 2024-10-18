@@ -22,11 +22,16 @@
         android:name="com.example.plantas.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
-    <activity
-        android:id="@+id/misplantas"
+
+    <fragment
+        android:id="@+id/navigation_mis_plantas"
         android:name="com.example.plantas.mis_plantas"
-        android:label="Nueva Ventana" />
-    <activity
-        android:id="@+id/mi_cuenta"
-        android:name="com.example.plantas.cuenta" />
+        android:label="Mis Plantas"
+        tools:layout="@layout/activity_mis_plantas" />
+
+    <fragment
+        android:id="@+id/navigation_mi_cuenta"
+        android:name="com.example.plantas.cuenta"
+        android:label="Mi Cuenta" />
+
 </navigation>

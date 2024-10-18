@@ -20,17 +20,16 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="411dp"
+            android:layout_height="568dp"
             android:gravity="center"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/btn_left"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="49dp"
+                android:layout_height="68dp"
                 android:background="@android:color/transparent"
-
                 android:padding="8dp"
                 android:src="@drawable/ic_arrow_left"
                 app:tint="@color/verde_lima" />
@@ -38,16 +37,16 @@
             <ImageView
                 android:id="@+id/img_cala"
                 android:layout_width="250dp"
-                android:layout_height="400dp"
+                android:layout_height="504dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cala" />
+                android:contentDescription="@string/cala"
+                android:scaleType="fitCenter" />
 
             <ImageButton
                 android:id="@+id/btn_right"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="46dp"
+                android:layout_height="68dp"
                 android:background="@android:color/transparent"
                 android:padding="8dp"
                 android:src="@drawable/ic_arrow_right"
@@ -55,14 +54,14 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/texto_cala"
+            android:id="@+id/texto_nombre_planta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="@string/cala"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
+
 
     </LinearLayout>
 

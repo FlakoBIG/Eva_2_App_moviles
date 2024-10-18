@@ -30,5 +30,9 @@
             android:id="@+id/misplantas"
             android:title="Mis Plantas"
             android:icon="@drawable/grain_png"/>
+        <item
+            android:id="@+id/nav_galeria_otros"
+            android:title="Galeria amigos"
+            android:icon="@android:drawable/ic_menu_myplaces"/>
     </group>
 </menu>

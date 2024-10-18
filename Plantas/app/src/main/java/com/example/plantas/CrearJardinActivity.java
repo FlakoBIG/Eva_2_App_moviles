@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -101,26 +102,26 @@ public class CrearJardinActivity extends AppCompatActivity {
             datosJardin.put("cantidad_de_plantas", 0); // agregar cantidad de plantas inicial 0
             datosJardin.put("cantidad_de_plantas_perecidas", 0); // agregar cantidad de plantas perecidas inicial 0
             datosJardin.put("cantidad_litros_agua_gastados_mes", 0); // agregar cantidad de litros de agua gastados
-            datosJardin.put("planta_mas_antigua", "ninguna planta"); // agregar la planta mas antigua
+            datosJardin.put("planta_mas_antigua", "ninguna planta"); // agregar la planta más antigua
+            datosJardin.put("lista_de_tareas", new ArrayList<>()); // agregar una lista vacía de tareas
 
-            // guardar datos del jardin en firestore
+            // guardar datos del jardín en Firestore
             db.collection(uid).document("datos_jardin").set(datosJardin)
                     .addOnSuccessListener(aVoid -> {
-                        // actualizar el campo "primera_vez" a "no" en el documento "datos_perfil"
                         db.collection(uid).document("datos_perfil")
                                 .update("primera_vez", "no")
                                 .addOnSuccessListener(aVoid2 -> {
-                                    Toast.makeText(CrearJardinActivity.this, "jardin creado con exito", Toast.LENGTH_SHORT).show();
-                                    // cambiar a la ventana de inicio
+                                    Toast.makeText(CrearJardinActivity.this, "Jardín creado con éxito", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(CrearJardinActivity.this, ventanainicio.class);
                                     startActivity(intent);
-                                    finish(); // opcional, si quieres cerrar la actividad actual
+                                    finish(); // cerrar la actividad actual
                                 })
-                                .addOnFailureListener(e -> Toast.makeText(CrearJardinActivity.this, "error al actualizar primera_vez", Toast.LENGTH_SHORT).show());
+                                .addOnFailureListener(e -> Toast.makeText(CrearJardinActivity.this, "Error al actualizar primera_vez", Toast.LENGTH_SHORT).show());
                     })
-                    .addOnFailureListener(e -> Toast.makeText(CrearJardinActivity.this, "error al crear el jardin", Toast.LENGTH_SHORT).show());
+                    .addOnFailureListener(e -> Toast.makeText(CrearJardinActivity.this, "Error al crear el jardín", Toast.LENGTH_SHORT).show());
         } else {
-            Toast.makeText(this, "no se encontro el uid", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No se encontró el uid", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
