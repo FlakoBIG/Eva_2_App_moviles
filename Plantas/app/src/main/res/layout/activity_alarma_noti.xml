@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Alarma_noti">
+
+    <TextView
+        android:id="@+id/tv_hora_ingresada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hora ingresada: "
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/timePicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_hora_ingresada"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_noti_ejemplo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notificación de prueba"
+        app:layout_constraintTop_toBottomOf="@+id/timePicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <Button
+        android:id="@+id/btn_clima"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Preguntar ahora"
+        app:layout_constraintTop_toBottomOf="@+id/btn_noti_ejemplo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btn_programar_alarma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Programar Alarma"
+        app:layout_constraintTop_toBottomOf="@+id/btn_clima"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,14 +9,11 @@ android {
     compileSdk = 34
 
     defaultConfig {
-
         applicationId = "com.example.plantas"
         minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -33,21 +30,25 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     buildFeatures {
         viewBinding = true
         compose = true
-
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -56,7 +57,7 @@ android {
 }
 
 dependencies {
-    implementation (libs.annotation)
+    implementation(libs.annotation)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
@@ -79,28 +80,35 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
-    implementation (libs.glide)
-    annotationProcessor (libs.compiler)
-    //firebase
+
+    // Firebase
     implementation(platform(libs.google.firebase.bom))
     implementation(libs.firebase.analytics)
-    implementation(platform(libs.google.firebase.bom))
     implementation(libs.firebase.auth)
-    implementation(libs.play.services.auth)
-    implementation(platform(libs.google.firebase.bom))
-    implementation(platform(libs.google.firebase.bom))
     implementation(libs.firebase.firestore)
-    implementation (libs.firebase.storage)
-    //plantnet
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
-    implementation (libs.okhttp)
-    implementation (platform(libs.firebase.bom.v3200)) // Asegúrate de usar la última versión
-    implementation (libs.google.firebase.auth)
-    implementation (libs.google.firebase.firestore)
-    implementation (libs.google.firebase.storage)
+    implementation(libs.firebase.storage)
 
+    // Google Play Services
+    implementation(libs.play.services.auth)
+    implementation(libs.play.services.location)
 
+    // Facebook SDK
+    implementation(libs.facebook.login)
+    implementation(libs.facebook.android.sdk)
 
+    // PlantNet
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
 
+    // WorkManager y Volley
+    implementation(libs.work.runtime)
+    implementation(libs.volley)
+
+    //glide
+    implementation(libs.glide)
+    annotationProcessor (libs.compiler)
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
 }
+

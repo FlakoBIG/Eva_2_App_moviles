@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:orientation="vertical"
-                android:paddingLeft="16dp">
+                android:paddingLeft="1dp">
 
                 <TextView
                     android:id="@+id/tv_title"
@@ -56,19 +56,49 @@
 
                 <EditText
                     android:id="@+id/et_plant_name"
-                    android:layout_width="match_parent"
+                    android:layout_width="236dp"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:background="@drawable/cuadrado_rendodo"
-                    android:hint="Ingresa tu nombre" />
+                    android:hint="Ingresa tu nombre"
+                    android:padding="10dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_agregar_planta"
+                        android:layout_width="113dp"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/verde_lima"
+                        android:text="Subir"
+                        android:textColor="@android:color/white" />
+
+                    <Button
+                        android:id="@+id/btn_mi_codigo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="2dp"
+                        android:backgroundTint="@color/verde_lima"
+                        android:text="Mi codigo"
+                        android:textColor="@android:color/white" />
+
+                </LinearLayout>
 
                 <Button
-                    android:id="@+id/btn_agregar_planta"
-                    android:layout_width="248dp"
+                    android:id="@+id/btn_refresh"
+                    android:layout_width="231dp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/verde_lima"
-                    android:text="Subir"
-                    android:textColor="@android:color/white" />
+                    android:backgroundTint="#358038"
+                    android:text="🔄️"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/table_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.063"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/table_title"
+                    app:layout_constraintVertical_bias="0.636" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -84,18 +114,19 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <FrameLayout
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_margin="8dp">
-
-            </FrameLayout>
         </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="11dp"
+            android:layout_height="199dp"
+            android:layout_margin="8dp">
+
+        </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFotos"
             android:layout_width="363dp"
-            android:layout_height="564dp"
+            android:layout_height="400dp"
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

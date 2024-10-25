@@ -56,7 +56,7 @@ public class ListaPlantasFragment extends BottomSheetDialogFragment {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            String plantaNombre = document.getString("nombre"); // Cambia según tu estructura
+                            String plantaNombre = document.getString("nombre"); // Cambia segnn tu estructura
                             plantas.add(plantaNombre);
                         }
                         adapter.notifyDataSetChanged();

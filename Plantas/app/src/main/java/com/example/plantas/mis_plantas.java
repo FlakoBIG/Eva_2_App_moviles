@@ -1,9 +1,9 @@
 package com.example.plantas;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-
 public class mis_plantas extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -24,6 +23,7 @@ public class mis_plantas extends AppCompatActivity {
     private PlantasAdapter plantasAdapter;
     private List<Planta> plantasList;
     private String uid;
+    private EditText barraBusqueda; // EditText para buscar plantas
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,22 @@ public class mis_plantas extends AppCompatActivity {
         plantasAdapter = new PlantasAdapter(plantasList, this);
         recyclerView.setAdapter(plantasAdapter);
 
+        // Inicializar barra de busqueda y boton de busqueda
+        barraBusqueda = findViewById(R.id.Barra_busqueda);
+        ImageView btnBuscar = findViewById(R.id.btn_buscar);
+
         // Llamar a cargarPlantas cuando se crea la actividad
         cargarPlantas();
+
+        // Configurar listener para el boton de busqueda
+        btnBuscar.setOnClickListener(v -> {
+            String nombrePlanta = barraBusqueda.getText().toString().trim();
+            if (!nombrePlanta.isEmpty()) {
+                buscarPlantasPorNombre(nombrePlanta);
+            } else {
+                Toast.makeText(this, "Ingresa un nombre para buscar.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         ImageView btnRecargar = findViewById(R.id.recargar);
         btnRecargar.setOnClickListener(v -> {
@@ -79,7 +93,7 @@ public class mis_plantas extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             QuerySnapshot querySnapshot = task.getResult();
                             if (querySnapshot != null) {
-                                plantasList.clear(); // Asegúrate de limpiar la lista siempre
+                                plantasList.clear();
                                 if (!querySnapshot.isEmpty()) {
                                     for (DocumentSnapshot document : querySnapshot.getDocuments()) {
                                         Planta planta = document.toObject(Planta.class);
@@ -103,5 +117,36 @@ public class mis_plantas extends AppCompatActivity {
         }
     }
 
-
+    // Nueva funcion para buscar plantas por nombre
+    private void buscarPlantasPorNombre(String nombrePlanta) {
+        if (uid != null) {
+            db.collection(uid).document("plantas")
+                    .collection("mis_plantas")
+                    .whereEqualTo("nombre", nombrePlanta)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            if (querySnapshot != null) {
+                                plantasList.clear();
+                                if (!querySnapshot.isEmpty()) {
+                                    for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                                        Planta planta = document.toObject(Planta.class);
+                                        if (planta != null) {
+                                            plantasList.add(planta);
+                                        }
+                                    }
+                                    plantasAdapter.notifyDataSetChanged();
+                                } else {
+                                    Toast.makeText(this, "No se encontraron plantas con ese nombre.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } else {
+                            Toast.makeText(this, "Error en la busqueda: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            Toast.makeText(this, "UID es nulo, no se puede buscar plantas.", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

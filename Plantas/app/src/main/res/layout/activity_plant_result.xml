@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/plantImageView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="Imagen de la planta" />
 
@@ -15,7 +15,8 @@
         android:id="@+id/plantNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre de la planta"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp" />
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:text="Nombre de la planta" />
 </LinearLayout>

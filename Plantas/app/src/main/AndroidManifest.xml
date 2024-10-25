@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!-- Declaración de queries para interactuar con otras aplicaciones (Cámara y Navegador) -->
+
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
 
-            <category android:name="android.intent.category.BROWSABLE" />
+            <category android:name="android.intent.categoary.BROWSABLE" />
 
             <data android:scheme="http" />
         </intent>
@@ -24,15 +24,24 @@
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="false" /> <!-- Permisos necesarios para la cámara, almacenamiento e internet -->
+        android:required="false" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -45,13 +54,24 @@
         android:theme="@style/Theme.Plantas"
         tools:targetApi="31">
         <activity
+            android:name=".Dirio_plantacion"
+            android:exported="false" />
+        <activity
+            android:name=".ProblemaySolucion"
+            android:exported="false" />
+        <activity
+            android:name=".Agregar_notas"
+            android:exported="false" />
+        <activity
+            android:name=".Alarma_noti"
+            android:exported="false" />
+        <activity
             android:name=".AgregarTareaActivity"
             android:exported="false" />
         <activity
             android:name=".Foto_planta_seleccionada"
             android:exported="false" />
         <activity android:name=".Galeria_otros" />
-
         <activity
             android:name=".Fotos_planta"
             android:exported="false" />
@@ -64,12 +84,20 @@
         <activity
             android:name=".mis_plantas"
             android:exported="false" />
+        <activity android:name=".DiarioPlantacion"></activity>
+
         <activity
             android:name=".PlantResultActivity"
             android:exported="false" />
+        <activity android:name=".Foto_amigo_planta_seleccionada" />
         <activity
             android:name=".CrearJardinActivity"
             android:exported="false" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity
             android:name=".cuenta"
             android:exported="false"
@@ -79,6 +107,7 @@
             android:exported="false"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.Plantas.NoActionBar" />
+        <activity android:name=".VentanaModificarPlanta" />
         <activity
             android:name=".Registrar"
             android:exported="false"
@@ -94,7 +123,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Proveedor de archivos necesario para la cámara -->
+        </activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -104,6 +134,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <service
+            android:name=".ClimaNotificacionService"
+            android:exported="false" />
     </application>
 
 </manifest>

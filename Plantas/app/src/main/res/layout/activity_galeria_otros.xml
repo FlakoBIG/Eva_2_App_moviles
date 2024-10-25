@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@color/verde_lima"
             android:gravity="center"
-            android:text="Agregar foto"
+            android:text="@string/Galeria_Amigos"
             android:textColor="#FFFFFF"
             android:padding="10dp" />
 
@@ -39,25 +39,47 @@
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="codigo"
+                    android:text="Ingresa el codigo del usuario"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/codigo_text"
-                    android:layout_width="253dp"
+                    android:layout_width="332dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/cuadrado_rendodo"
                     android:hint="Ingresa el codigo"
                     android:padding="10dp" />
 
-                <Button
-                    android:id="@+id/Buscar_galeria"
-                    android:layout_width="248dp"
+                <LinearLayout
+                    android:layout_width="330dp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/verde_lima"
-                    android:text="Buscar"
-                    android:textColor="@android:color/white" />
+                    android:layout_weight="2"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/Buscar_galeria"
+                        android:layout_width="244dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/verde_lima"
+                        android:text="Buscar"
+                        android:textColor="@android:color/white" />
+
+                    <Button
+                        android:id="@+id/btn_refresh"
+                        android:layout_width="80dp"
+                        android:layout_height="46dp"
+                        android:backgroundTint="#358038"
+                        android:text="🔄️"
+                        android:textSize="18sp"
+                        android:layout_marginLeft="5dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/table_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.063"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/table_title"
+                        app:layout_constraintVertical_bias="0.636" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -74,7 +96,7 @@
             android:orientation="horizontal">
 
             <FrameLayout
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="150dp"
                 android:layout_margin="8dp">
 
@@ -83,8 +105,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFotos"
-            android:layout_width="363dp"
-            android:layout_height="564dp"
+            android:layout_width="359dp"
+            android:layout_height="524dp"
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

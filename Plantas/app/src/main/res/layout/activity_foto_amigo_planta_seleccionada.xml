@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    tools:context=".Foto_planta_seleccionada">
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+
+            android:layout_width="411dp"
+            android:layout_height="568dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_left"
+                android:layout_width="49dp"
+                android:layout_height="68dp"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_arrow_left"
+                app:tint="@color/verde_lima" />
+
+            <ImageView
+                android:id="@+id/img_cala"
+                android:layout_width="250dp"
+                android:layout_height="504dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@string/cala"
+                android:scaleType="fitCenter" />
+
+            <LinearLayout
+                android:layout_marginTop="62dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <!-- Flecha derecha -->
+                <ImageButton
+                    android:id="@+id/btn_right"
+                    android:layout_width="46dp"
+                    android:layout_height="68dp"
+                    android:background="@android:color/transparent"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_arrow_right"
+                    app:tint="@color/verde_lima" />
+
+                <!-- Botón de "Me gusta" (Corazón) -->
+                <ImageButton
+                    android:id="@+id/btn_like"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/corazon_sin_relleno"
+                    app:tint="@android:color/holo_red_dark" />
+
+                <!-- Contador de "Me gusta" -->
+                <TextView
+                    android:id="@+id/tv_likes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/black" />
+
+                <!-- Botón de comentarios -->
+                <ImageButton
+                    android:id="@+id/btn_ver_comentarios"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/comentarios"
+                    app:tint="@android:color/holo_blue_dark" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/texto_nombre_planta"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

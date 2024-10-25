@@ -41,129 +41,137 @@ public class GalleryFragment extends Fragment {
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Inicializa Firestore y la tabla
+        // inicializa firestore y la tabla
         db = FirebaseFirestore.getInstance();
-        tableLayout = binding.tableFloracion;  // Asegúrate de usar el binding correcto
+        tableLayout = binding.tableFloracion;  // asegurate de usar el binding correcto
 
-        // Cargar plantas usando el UID del usuario
+        // cargar plantas usando el uid del usuario
         loadRealPlants();
 
         return root;
     }
 
     private void loadRealPlants() {
-        String userId = getCurrentUserId();  // Obtener el UID del usuario
+        String userId = getCurrentUserId();  // obtener el uid del usuario
 
         if (userId != null) {
-            Log.d(TAG, "Cargando plantas del usuario: " + userId);
+            Log.d(TAG, "cargando plantas del usuario: " + userId);
 
-            // Obtener las plantas reales del perfil del usuario
+            // obtener las plantas reales del perfil del usuario
             db.collection(userId)
-                    .document("datos_perfil")  // Acceder directamente al documento 'datos_perfil'
-                    .get()  // Obtener el documento específico
+                    .document("datos_perfil")  // acceder directamente al documento 'datos_perfil'
+                    .get()  // obtener el documento específico
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
-                            Log.d(TAG, "Documento obtenido: " + document); // Log del documento
+                            Log.d(TAG, "documento obtenido: " + document); // log del documento
 
                             if (document != null && document.exists()) {
-                                Log.d(TAG, "El documento existe y contiene datos.");
-                                // Obtener el mapa de plantas
+                                Log.d(TAG, "el documento existe y tiene datos.");
+                                // obtener el mapa de plantas
                                 Map<String, Object> plantasMap = (Map<String, Object>) document.get("Plantas_reales_usando");
                                 if (plantasMap != null) {
-                                    plantNames.addAll(plantasMap.keySet()); // Agregar los nombres de plantas al listado
+                                    plantNames.addAll(plantasMap.keySet()); // agregar los nombres de plantas al listado
                                     for (String plantName : plantNames) {
-                                        Log.d(TAG, "Planta añadida: " + plantName);
+                                        Log.d(TAG, "planta añadida: " + plantName);
                                     }
-                                    // Cargar la cabecera después de obtener las plantas
+                                    // cargar la cabecera después de obtener las plantas
                                     loadPlantTableHeader();
-                                    // Cargar los meses de floración
+                                    // cargar los meses de floracion
                                     loadBloomingMonths();
                                 } else {
-                                    Log.d(TAG, "El mapa de plantas es nulo.");
+                                    Log.d(TAG, "el mapa de plantas es nulo.");
                                 }
                             } else {
-                                Log.d(TAG, "No se encontró el documento de plantas reales.");
+                                Log.d(TAG, "no se encontro el documento de plantas reales.");
                             }
                         } else {
-                            Log.e(TAG, "Error al obtener plantas reales.", task.getException());
+                            Log.e(TAG, "error al obtener plantas reales.", task.getException());
                         }
                     });
         } else {
-            Log.e(TAG, "Error: UID es nulo, no se puede cargar las plantas.");
+            Log.e(TAG, "error: uid es nulo, no se puede cargar las plantas.");
         }
     }
 
     private void loadPlantTableHeader() {
-        Log.d(TAG, "Cargando cabeceras de la tabla con las plantas.");
+        Log.d(TAG, "cargando cabeceras de la tabla con las plantas.");
 
-        // Obtener la fila de cabecera (la primera fila)
+        // obtener la fila de cabecera (la primera fila)
         TableRow headerRow = (TableRow) tableLayout.getChildAt(0);
 
-        // Añadir las plantas como cabecera
+        // añadir las plantas como cabecera
         for (String plantName : plantNames) {
             TextView plantHeader = new TextView(getContext());
             plantHeader.setText(plantName);
             plantHeader.setPadding(8, 8, 8, 8);
             plantHeader.setBackgroundColor(getResources().getColor(R.color.verde_lima_oscuro));
             plantHeader.setTextColor(getResources().getColor(R.color.white));
+
+            // no dejar que se extienda la cabecera por toda la pantalla
+            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
+                    TableRow.LayoutParams.WRAP_CONTENT,
+                    TableRow.LayoutParams.WRAP_CONTENT
+            );
+            plantHeader.setLayoutParams(layoutParams);
+
             headerRow.addView(plantHeader);
         }
     }
 
     private void loadBloomingMonths() {
-        Log.d(TAG, "Cargando los meses de floración para las plantas.");
+        Log.d(TAG, "cargando los meses de floracion para las plantas.");
 
         for (String plantName : plantNames) {
-            Log.d(TAG, "Cargando meses de floración para: " + plantName);
+            Log.d(TAG, "cargando meses de floracion para: " + plantName);
             db.collection("info_planta").document(plantName)
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
-                        Log.d(TAG, "Documento de Info_planta obtenido: " + documentSnapshot); // Log del documento
+                        Log.d(TAG, "documento de info_planta obtenido: " + documentSnapshot); // log del documento
                         if (documentSnapshot.exists()) {
                             List<String> bloomingMonths = (List<String>) documentSnapshot.get("mesesFloracion");
-                            Log.d(TAG, "Meses de floración de " + plantName + ": " + bloomingMonths);
+                            Log.d(TAG, "meses de floracion de " + plantName + ": " + bloomingMonths);
                             markBloomingMonths(plantName, bloomingMonths);
                         } else {
-                            Log.d(TAG, "No se encontró información de floración para " + plantName);
+                            Log.d(TAG, "no se encontro informacion de floracion para " + plantName);
                         }
                     })
                     .addOnFailureListener(e -> {
-                        Log.e(TAG, "Error al obtener meses de floración para " + plantName, e);
+                        Log.e(TAG, "error al obtener meses de floracion para " + plantName, e);
                     });
         }
     }
 
     private void markBloomingMonths(String plantName, List<String> bloomingMonths) {
-        // Recorre cada fila correspondiente a un mes
-        for (int rowIndex = 1; rowIndex < tableLayout.getChildCount(); rowIndex++) {  // Empieza desde 1 para saltar la cabecera
+        // recorre cada fila correspondiente a un mes
+        for (int rowIndex = 1; rowIndex < tableLayout.getChildCount(); rowIndex++) {  // empieza desde 1 para saltar la cabecera
             TableRow row = (TableRow) tableLayout.getChildAt(rowIndex);
-            TextView monthTextView = (TextView) row.getChildAt(0); // El TextView del mes está en la primera columna
+            TextView monthTextView = (TextView) row.getChildAt(0); // el TextView del mes está en la primera columna
 
             String monthName = monthTextView.getText().toString();
             ImageView imageView = new ImageView(getContext());
             imageView.setPadding(8, 8, 8, 8);
 
-            // Ajustar el tamaño del ImageView
-            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(50, 50);  // Ajustar el tamaño de los puntos
+            // ajustar el tamaño del ImageView
+            TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(50, 50);  // ajustar el tamaño de los puntos
             imageView.setLayoutParams(layoutParams);
 
-            // Si el mes está en la lista de meses de floración, se marca
+            // si el mes está en la lista de meses de floracion, se marca
             if (bloomingMonths != null && bloomingMonths.contains(monthName)) {
-                imageView.setImageResource(R.drawable.circle_shape); // Cambia este recurso al que representa floración
+                imageView.setImageResource(R.drawable.circle_shape); // cambia este recurso al que representa floracion
             } else {
-                imageView.setImageResource(R.drawable.circle_gray);  // Cambia este recurso al que representa "sin floración"
+                imageView.setImageResource(R.drawable.circle_gray);  // cambia este recurso al que representa "sin floracion"
             }
 
-            // Añadir la imagen en la columna correspondiente de la planta
+            // añadir la imagen en la columna correspondiente de la planta
             row.addView(imageView);
         }
     }
 
     private String getCurrentUserId() {
-        // Obtener el UID desde SharedPreferences
+        // obtener el uid desde SharedPreferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Credenciales", Context.MODE_PRIVATE);
-        return sharedPreferences.getString("uid", null);  // Retorna el UID si está disponible
+        return sharedPreferences.getString("uid", null);  // retorna el uid si está disponible
     }
 
     @Override

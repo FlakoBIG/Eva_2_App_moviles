@@ -18,5 +18,10 @@
         android:orderInCategory="101"
         android:title="@string/Galeria_Amigos"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/Notificacion"
+        android:orderInCategory="101"
+        android:title="@string/notificaciones"
+        app:showAsAction="never" />
 
 </menu>

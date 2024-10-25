@@ -157,45 +157,40 @@ public class HomeFragment extends Fragment {
                 .setTitle("Confirmar tarea")
                 .setMessage("¿Completaste la tarea " + descripcionTarea + "?")
                 .setPositiveButton("Sí", (dialog, which) -> {
-                    // Verificar si la tarea es "regar"
-                    if (descripcionTarea.equalsIgnoreCase("regar")) {
-                        firestore.collection(uid).document("datos_jardin")
-                                .get()
-                                .addOnSuccessListener(documentSnapshot -> {
-                                    if (documentSnapshot.exists()) {
-                                        String regar = documentSnapshot.getString("regar");
-                                        if ("sí".equalsIgnoreCase(regar)) {
-                                            // Actualizar cantidad de litros
-                                            firestore.collection(uid).document("datos_jardin")
-                                                    .update("cantidad_litros_agua_gastados_mes", FieldValue.increment(1))
-                                                    .addOnSuccessListener(aVoid -> {
-                                                        Toast.makeText(getActivity(), "Regar: Sí. Consumo de agua actualizado.", Toast.LENGTH_SHORT).show();
-                                                    })
-                                                    .addOnFailureListener(e -> {
-                                                        e.printStackTrace();
-                                                        Toast.makeText(getActivity(), "Error al actualizar el consumo de agua", Toast.LENGTH_SHORT).show();
-                                                    });
-                                        } else {
-                                            Toast.makeText(getActivity(), "Regar: No. No se actualizó el consumo de agua.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                })
-                                .addOnFailureListener(e -> {
-                                    e.printStackTrace();
-                                    Toast.makeText(getActivity(), "Error al obtener datos del jardín", Toast.LENGTH_SHORT).show();
-                                });
-                    }
-
-                    // Eliminar la tarea
+                    // Obtener la tarea específica para verificar el campo "regar"
                     firestore.collection(uid).document("tareas").collection("mis_tareas").document(idTarea)
-                            .delete()
-                            .addOnSuccessListener(aVoid -> {
-                                Toast.makeText(getActivity(), "Tarea completada", Toast.LENGTH_SHORT).show();
-                                cargarTareas(uid); // Recargar tareas después de eliminar
+                            .get()
+                            .addOnSuccessListener(documentSnapshot -> {
+                                if (documentSnapshot.exists()) {
+                                    String regar = documentSnapshot.getString("regar");
+                                    if ("sí".equalsIgnoreCase(regar)) {
+                                        // Actualizar cantidad de litros si la tarea es "regar"
+                                        firestore.collection(uid).document("datos_jardin")
+                                                .update("cantidad_litros_agua_gastados_mes", FieldValue.increment(1))
+                                                .addOnSuccessListener(aVoid -> {
+                                                    Toast.makeText(getActivity(), "Consumo de agua actualizado.", Toast.LENGTH_SHORT).show();
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    e.printStackTrace();
+                                                    Toast.makeText(getActivity(), "Error al actualizar el consumo de agua", Toast.LENGTH_SHORT).show();
+                                                });
+                                    }
+                                }
+                                // Eliminar la tarea
+                                firestore.collection(uid).document("tareas").collection("mis_tareas").document(idTarea)
+                                        .delete()
+                                        .addOnSuccessListener(aVoid -> {
+                                            Toast.makeText(getActivity(), "Tarea completada", Toast.LENGTH_SHORT).show();
+                                            cargarTareas(uid); // Recargar tareas después de eliminar
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            e.printStackTrace();
+                                            Toast.makeText(getActivity(), "Error al eliminar la tarea", Toast.LENGTH_SHORT).show();
+                                        });
                             })
                             .addOnFailureListener(e -> {
                                 e.printStackTrace();
-                                Toast.makeText(getActivity(), "Error al eliminar la tarea", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Error al obtener los detalles de la tarea", Toast.LENGTH_SHORT).show();
                             });
                 })
                 .setNegativeButton("No", (dialog, which) -> {
@@ -205,22 +200,37 @@ public class HomeFragment extends Fragment {
                 .show();
     }
 
-
     private void cargarTareas(String uid) {
         firestore.collection(uid).document("tareas").collection("mis_tareas")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     tablaTareas.removeAllViews(); // Limpiar la tabla antes de cargar tareas
-                    for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-                        String descripcionTarea = document.getString("nombre");
-                        Boolean completada = document.getBoolean("completado");
-                        String idTarea = document.getId(); // Obtener el ID del documento
-                        agregarTarea(descripcionTarea, completada != null && completada, idTarea);
+
+                    // Verificar si hay tareas
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        // Crear un TextView para mostrar el mensaje "No hay tareas"
+                        TextView noTareasTextView = new TextView(getActivity());
+                        noTareasTextView.setText("No hay tareas");
+                        noTareasTextView.setTextSize(18);
+                        noTareasTextView.setPadding(16, 16, 16, 16);
+                        noTareasTextView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
+                        noTareasTextView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+
+                        // Agregar el mensaje a la tabla
+                        tablaTareas.addView(noTareasTextView);
+                    } else {
+                        for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                            String descripcionTarea = document.getString("nombre");
+                            Boolean completada = document.getBoolean("completado");
+                            String idTarea = document.getId(); // Obtener el ID del documento
+                            agregarTarea(descripcionTarea, completada != null && completada, idTarea);
+                        }
                     }
                 }).addOnFailureListener(e -> {
                     e.printStackTrace();
                 });
     }
+
 
     private static class TareaDescargarImagen extends AsyncTask<String, Void, Bitmap> {
         ImageView imageView;

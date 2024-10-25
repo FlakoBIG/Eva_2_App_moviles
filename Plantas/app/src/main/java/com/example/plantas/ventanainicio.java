@@ -140,14 +140,20 @@ public class ventanainicio extends AppCompatActivity implements NavigationView.O
             Intent intent = new Intent(this, AgregarPlantasBase.class);
             startActivity(intent);
             return true;
-        }else if (id == R.id.amigos) {
-            Log.d("MenuDebug", "boton agregar plantas seleccionado");
+        } else if (id == R.id.amigos) {
+            Log.d("MenuDebug", "boton amigos seleccionado");
             Intent intent = new Intent(this, Galeria_otros.class);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.Notificacion) {
+            Log.d("MenuDebug", "boton notificaciones seleccionado");
+            Intent intent = new Intent(this, Alarma_noti.class);
             startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     private void actualizarNombreEnHeader(NavigationView navigationView) {
         View headerView = navigationView.getHeaderView(0);

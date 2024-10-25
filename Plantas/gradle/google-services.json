@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "886335506714",
+    "firebase_url": "https://greenapp-4261a-default-rtdb.firebaseio.com",
+    "project_id": "greenapp-4261a",
+    "storage_bucket": "greenapp-4261a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886335506714:android:9bab5615fb1d82722bc4a3",
+        "android_client_info": {
+          "package_name": "com.example.plantas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "886335506714-tsd6568qt7tladpatko7ogjlpobjhdgo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5pROc4oQd2dCNiiTnrTTUXLOigHQ3gVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "886335506714-tsd6568qt7tladpatko7ogjlpobjhdgo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

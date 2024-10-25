@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -9,26 +9,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Agregar Nota"
-        android:textSize="20sp"
-        android:textColor="@android:color/black"
-        android:layout_gravity="center" />
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:paddingBottom="16dp" />
 
     <EditText
-        android:id="@+id/input_nota"
+        android:id="@+id/editTextNota"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Escribe tu nota aquí"
         android:inputType="textMultiLine"
-        android:minLines="3"
-        android:maxLines="5"
-        android:layout_marginTop="16dp" />
+        android:lines="5"
+        android:gravity="top|start"
+        android:padding="10dp" />
 
     <Button
-        android:id="@+id/boton_agregar"
-        android:layout_width="match_parent"
+        android:id="@+id/btnAgregar"
+        android:layout_width="369dp"
         android:layout_height="wrap_content"
-        android:text="Agregar"
+        android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:background="@android:color/holo_green_light"
+        android:padding="10dp"
+        android:text="Agregar"
         android:textColor="@android:color/white" />
 </LinearLayout>

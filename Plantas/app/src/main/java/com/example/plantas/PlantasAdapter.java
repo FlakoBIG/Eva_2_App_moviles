@@ -36,7 +36,7 @@ public class PlantasAdapter extends RecyclerView.Adapter<PlantasAdapter.PlantaVi
     public void onBindViewHolder(@NonNull PlantaViewHolder holder, int position) {
         Planta planta = plantas.get(position);
         holder.nombreTextView.setText("Nombre: " + planta.getNombre());
-        holder.fechaTextView.setText("Fecha de plantación: " + planta.getFecha_plantacion());
+        holder.fechaTextView.setText("Fecha de plantacion: " + planta.getFecha_plantacion());
 
         // Cargar imagen con Glide
         String fotoUrl = planta.getFoto_principal();

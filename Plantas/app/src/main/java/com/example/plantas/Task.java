@@ -12,7 +12,7 @@ public class Task {
         this.regar = regar; // Inicializa el nuevo campo
     }
 
-    // Métodos getter
+    // Metodos getter
     public String getId() {
         return id;
     }
@@ -22,6 +22,6 @@ public class Task {
     }
 
     public String getRegar() {
-        return regar; // Método getter para el campo "regar"
+        return regar; // Metodo getter para el campo "regar"
     }
 }

@@ -44,6 +44,11 @@
     <string name="agregar_problema_y_soluci_n">Agregar Problema y solución</string>
     <string name="Plantas_a_la_base">Plantas a la base</string>
     <string name="Galeria_Amigos">Galeria Amigos</string>
-    ¿
+
+    <string name="facebook_app_id">1988148721624848</string>
+    <string name="default_web_client_id">886335506714-xxxxxxxxxxxx.apps.googleusercontent.com</string>
+    <string name="notificaciones">Notificaciones</string>
+    <string name="ver_diario">ver diario</string>
+
 
 </resources>

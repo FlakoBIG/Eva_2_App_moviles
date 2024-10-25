@@ -25,11 +25,11 @@ public class Foto_planta_seleccionada extends AppCompatActivity {
         imageView = findViewById(R.id.img_cala);
         btnFlechaIzquierda = findViewById(R.id.btn_left);
         btnFlechaDerecha = findViewById(R.id.btn_right);
-        textoNombrePlanta = findViewById(R.id.texto_nombre_planta); // Asegúrate de que este ID coincida
+        textoNombrePlanta = findViewById(R.id.texto_nombre_planta);
 
         // Obtener la lista de fotos y el índice actual
-        fotos = getIntent().getStringArrayListExtra("fotos"); // Asegúrate de enviar la lista de fotos desde la actividad anterior
-        currentIndex = getIntent().getIntExtra("current_index", 0); // Obtener el índice actual de la foto
+        fotos = getIntent().getStringArrayListExtra("fotos");
+        currentIndex = getIntent().getIntExtra("current_index", 0);
 
         // Obtener el nombre de la planta y establecerlo en el TextView
         String nombrePlanta = getIntent().getStringExtra("nombre"); // Obtener el nombre de la planta
@@ -51,15 +51,12 @@ public class Foto_planta_seleccionada extends AppCompatActivity {
 
     private void cambiarFoto(int direction) {
         currentIndex += direction;
-        // Asegurarse de que el índice esté dentro de los límites
         if (currentIndex < 0) {
             currentIndex = fotos.size() - 1; // Volver al final de la lista si está en el inicio
         } else if (currentIndex >= fotos.size()) {
-            currentIndex = 0; // Volver al inicio si está al final
+            currentIndex = 0;
         }
         cargarFoto(); // Cargar la nueva foto
 
-        // Actualizar el nombre de la planta si es necesario
-        // Aquí puedes agregar lógica para actualizar el nombre de la planta basado en el índice
     }
 }

@@ -25,7 +25,8 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Map;import java.util.ArrayList;
+import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,12 +60,12 @@ public class Ventana_agregar_planta extends BottomSheetDialogFragment {
         etFechaPlantacion = view.findViewById(R.id.et_fecha_plantación);
         ImageView ivCalendar = view.findViewById(R.id.iv_calendar);
         btnAgregarPlanta = view.findViewById(R.id.btn_agregar_planta);
-        btnVerPlantas = view.findViewById(R.id.plantita); // Ícono para ver la lista de plantas
+        btnVerPlantas = view.findViewById(R.id.plantita); // icono para ver la lista de plantas
 
         btnSubirFoto.setOnClickListener(v -> abrirGaleria());
         ivCalendar.setOnClickListener(v -> mostrarDatePicker());
 
-        // Al presionar el ícono de la planta, se abre la ventana de la lista de plantas
+        // Al presionar el icono de la planta, se abre la ventana de la lista de plantas
         btnVerPlantas.setOnClickListener(v -> mostrarListaPlantas());
 
         btnAgregarPlanta.setOnClickListener(v -> {
@@ -192,7 +193,6 @@ public class Ventana_agregar_planta extends BottomSheetDialogFragment {
                     // Actualiza la lista en Firestore
                     perfilRef.update("Plantas_reales_usando", plantasUsando)
                             .addOnSuccessListener(aVoid -> {
-                                // Puedes agregar un Toast aquí si deseas informar que se actualizó
                             })
                             .addOnFailureListener(e -> {
                                 Toast.makeText(getActivity(), "Error al actualizar Plantas_reales_usando: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -203,7 +203,6 @@ public class Ventana_agregar_planta extends BottomSheetDialogFragment {
                     nuevasPlantas.put(nombreReal, 1);
                     perfilRef.update("Plantas_reales_usando", nuevasPlantas)
                             .addOnSuccessListener(aVoid -> {
-                                // Puedes agregar un Toast aquí si deseas informar que se creó
                             })
                             .addOnFailureListener(e -> {
                                 Toast.makeText(getActivity(), "Error al crear Plantas_reales_usando: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -229,10 +228,10 @@ public class Ventana_agregar_planta extends BottomSheetDialogFragment {
                 if (cantidadActual == 0) {
                     jardinRef.update("planta_mas_antigua", nombrePlanta)
                             .addOnSuccessListener(aVoid -> {
-                                Toast.makeText(getActivity(), "Planta más antigua registrada", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Planta mas antigua registrada", Toast.LENGTH_SHORT).show();
                             })
                             .addOnFailureListener(e -> {
-                                Toast.makeText(getActivity(), "Error al actualizar planta más antigua: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Error al actualizar planta mas antigua: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             });
                 }
 
@@ -252,7 +251,7 @@ public class Ventana_agregar_planta extends BottomSheetDialogFragment {
                 Toast.makeText(getActivity(), "No se encontró el documento 'datos_jardin'", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(e -> {
-            Toast.makeText(getActivity(), "Error al leer datos del jardín: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Error al leer datos del jardin: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
 
